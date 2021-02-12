@@ -81,6 +81,8 @@ export const addAddress = (formValues) => async (dispatch, getState) => {
     customer_id: userId,
   });
 
+  console.log(response);
+
   dispatch({ type: ADD_ADDRESS, payload: getState().addresses.addresses });
   history.push("/");
 };
