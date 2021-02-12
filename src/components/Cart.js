@@ -63,7 +63,7 @@ class Cart extends React.Component {
       return (
         <WarningMessage
           header="You dont have any product in the cart"
-          description="Please add product to cart"
+          description="Please add products to cart"
         />
       );
     }
