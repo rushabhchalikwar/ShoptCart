@@ -8,7 +8,7 @@ class StepProcess extends React.Component {
         <Link
           to="/checkout/cart"
           className={
-            this.props.stepNumber >= "1" ? "completed step" : "active step"
+            this.props.stepNumber >= "0" ? "completed step" : "active step"
           }
         >
           <div className="content">
@@ -19,7 +19,7 @@ class StepProcess extends React.Component {
         <Link
           to="/checkout/shipping"
           className={
-            this.props.stepNumber >= "2" ? "completed step" : "active step"
+            this.props.stepNumber >= "1" ? "completed step" : "active step"
           }
         >
           <div className="content">
@@ -30,7 +30,7 @@ class StepProcess extends React.Component {
         <Link
           to="/checkout/payment"
           className={
-            this.props.stepNumber >= "3" ? "completed step" : "active step"
+            this.props.stepNumber >= "2" ? "completed step" : "active step"
           }
         >
           <div className="content">
