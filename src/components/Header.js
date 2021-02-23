@@ -28,7 +28,7 @@ class Header extends React.Component {
 
   renderDisplayName() {
     if (this.props.isSignedIn) {
-      return <div>{this.props.user.firstName}</div>;
+      return <div>Hello , {this.props.user.firstName}</div>;
     }
   }
 

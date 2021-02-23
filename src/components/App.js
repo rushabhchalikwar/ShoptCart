@@ -9,6 +9,7 @@ import AccountDetails from "./AccountDetails";
 import Shipping from "./Shipping";
 import Payment from "./Payment";
 import AddAddresses from "./AddAddresses";
+import EditAddress from "./EditAddress";
 
 const App = () => {
   return (
@@ -43,15 +44,16 @@ const App = () => {
               exact
               component={withRouter(AccountDetails)}
             />
-            <Route
-              path="/my/orders"
-              exact
-              component={withRouter(AccountDetails)}
-            />
+            <Route path="/my/orders" exact component={AccountDetails} />
             <Route
               path="/my/addresses"
               exact
               component={withRouter(AccountDetails)}
+            />
+            <Route
+              path="/my/addresses/edit"
+              exact
+              component={withRouter(EditAddress)}
             />
             <Route
               path="/checkout/shipping"

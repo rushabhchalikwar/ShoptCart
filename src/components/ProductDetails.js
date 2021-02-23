@@ -52,7 +52,8 @@ class ProductDetails extends React.Component {
               Rs. {this.props.product.price} <br />
               <h3>Select Size (India)</h3>
             </h2>
-            <select className="ui dropdown">{this.renderSizes()}</select> <br />
+            <select className="ui dropdown">{this.renderSizes()}</select>
+            <br />
             <br />
             <button
               className="ui primary button"

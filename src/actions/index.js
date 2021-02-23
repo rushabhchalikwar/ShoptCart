@@ -9,6 +9,9 @@ import {
   RETRIEVE_ADDRESSES,
   ADD_ADDRESS,
   RETRIEVE_ORDER,
+  REMOVE_ADDRESS,
+  EDIT_ADDRESS,
+  PLACE_ORDER,
 } from "../actions/types";
 import products from "../apis/products";
 
@@ -52,7 +55,7 @@ export const addTocart = (product) => async (dispatch, getState) => {
 
   dispatch({ type: ADD_TO_CART, payload: response.data });
 
-  history.push("/");
+  history.push("/checkout/cart");
 };
 
 export const retrieveCart = () => async (dispatch, getState) => {
@@ -93,4 +96,26 @@ export const retrieveOrder = () => async (dispatch, getState) => {
   const response = await products.get(`/orders?userId=${userId}`);
 
   dispatch({ type: RETRIEVE_ORDER, payload: response.data });
+};
+
+export const removeAddress = (id) => async (dispatch) => {
+  await products.delete(`/addresses/${id}`);
+
+  dispatch({ type: REMOVE_ADDRESS, payload: id });
+  //history.push("/");
+};
+
+export const editAddress = (id, formValues) => async (dispatch) => {
+  const response = await products.patch(`/addresses/${id}`, formValues);
+
+  dispatch({ type: EDIT_ADDRESS, payload: response.data });
+  //history.push("/");
+};
+
+export const placeOrder = (orderDetails) => async (dispatch, getState) => {
+  const response = await products.post("/orders", orderDetails);
+
+  dispatch({ type: PLACE_ORDER, payload: response.data });
+
+  history.push("/my/orders");
 };

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Addresses from "./Addresses";
 import Orders from "./Orders";
 import Profile from "./Profile";
+import WarningMessage from "./WarningMessage";
 
 class AccountDetails extends React.Component {
   renderActiveElement() {
@@ -63,12 +64,14 @@ class AccountDetails extends React.Component {
       return <Addresses />;
     }
 
-    return <Orders />;
+    if (this.props.match.url === "/my/orders") {
+      return <Orders />;
+    }
   }
 
   render() {
     if (!this.props.isSignedIn) {
-      return <div>Please sign in to continue</div>;
+      return <WarningMessage header="Please sign in to continue" />;
     }
 
     return (

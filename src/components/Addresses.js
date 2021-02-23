@@ -1,11 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
-import { retrieveAddresses } from "../actions";
+import { retrieveAddresses, removeAddress, editAddress } from "../actions";
 import { Link } from "react-router-dom";
 
 class Addresses extends React.Component {
   componentDidMount() {
     this.props.retrieveAddresses();
+  }
+
+  removeAddress(id) {
+    this.props.removeAddress(id);
+  }
+
+  renderDefaultAddressOption(address) {
+    if (!address.default) {
+      return (
+        <button
+          className="ui positive basic button"
+          style={{ margin: "6px" }}
+          onClick={() => this.changeDefaultAddress(address)}
+        >
+          Make this default
+        </button>
+      );
+    }
+  }
+
+  changeDefaultAddress(address) {
+    this.props.editAddress(address.id, { ...address, default: true });
   }
 
   renderAddresses() {
@@ -22,7 +44,7 @@ class Addresses extends React.Component {
               <span className="category">{address.address2}</span> <br />
               <span className="category">
                 {address.city + " - " + address.zip}
-              </span>{" "}
+              </span>
               <br />
               <span className="category">{address.province}</span>
               <br />
@@ -34,8 +56,16 @@ class Addresses extends React.Component {
             </div>
           </div>
           <div className="extra content">
-            <button className="ui primary button">Edit</button>
-            <button className="ui primary button">Remove</button>
+            <Link to="/my/addresses/edit" className="ui primary button">
+              Edit
+            </Link>
+            <button
+              className="ui primary button"
+              onClick={() => this.removeAddress(address.id)}
+            >
+              Remove
+            </button>
+            {this.renderDefaultAddressOption(address)}
           </div>
         </div>
       );
@@ -66,4 +96,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveAddresses })(Addresses);
+export default connect(mapStateToProps, {
+  retrieveAddresses,
+  removeAddress,
+  editAddress,
+})(Addresses);
