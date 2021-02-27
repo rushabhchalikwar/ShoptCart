@@ -12,6 +12,7 @@ import {
   REMOVE_ADDRESS,
   EDIT_ADDRESS,
   PLACE_ORDER,
+  REMOVE_CART_PRODUCT,
 } from "../actions/types";
 import products from "../apis/products";
 
@@ -51,7 +52,13 @@ export const fetchProduct = (id) => async (dispatch) => {
 
 export const addTocart = (product) => async (dispatch, getState) => {
   const { userId } = getState().auth.user;
-  const response = await products.post("/cart", { userId, product });
+  const { id } = product;
+  const response = await products.post("/cart", {
+    id: userId,
+    userId,
+    productId: id,
+    product,
+  });
 
   dispatch({ type: ADD_TO_CART, payload: response.data });
 
@@ -102,14 +109,15 @@ export const removeAddress = (id) => async (dispatch) => {
   await products.delete(`/addresses/${id}`);
 
   dispatch({ type: REMOVE_ADDRESS, payload: id });
-  //history.push("/");
+  history.push("/");
+  history.push("/my/addresses");
 };
 
 export const editAddress = (id, formValues) => async (dispatch) => {
   const response = await products.patch(`/addresses/${id}`, formValues);
-
   dispatch({ type: EDIT_ADDRESS, payload: response.data });
-  //history.push("/");
+  history.push("/");
+  history.push("/my/addresses");
 };
 
 export const placeOrder = (orderDetails) => async (dispatch, getState) => {
@@ -118,4 +126,13 @@ export const placeOrder = (orderDetails) => async (dispatch, getState) => {
   dispatch({ type: PLACE_ORDER, payload: response.data });
 
   history.push("/my/orders");
+};
+
+export const removeCartProduct = () => async (dispatch, getState) => {
+  const { userId } = getState().auth.user;
+  await products.delete(`/cart/${userId}`);
+
+  dispatch({ type: REMOVE_CART_PRODUCT, payload: userId });
+  history.push("/");
+  history.push("/checkout/cart");
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { retrieveOrder } from "../actions";
-import { Link } from "react-router-dom";
 
 class Orders extends React.Component {
   state = { activeIndex: null };

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { retrieveCart } from "../actions";
+import { retrieveCart, removeCartProduct } from "../actions";
 import history from "../history";
 import StepProcess from "./StepProcess";
 import { Link } from "react-router-dom";
@@ -16,18 +16,18 @@ class Cart extends React.Component {
   renderCartProduct() {
     return this.props.products.map(({ product }) => {
       return (
-        <div class="item" style={{ marginTop: "20px" }}>
-          <div class="ui small image">
+        <div className="item" style={{ marginsTop: "20px" }}>
+          <div className="ui small image">
             <img
               src={product.image}
               style={{ maxHeight: "80px" }}
               alt={product.title}
             />
           </div>
-          <div class="content">
-            <div class="header">{product.title}</div>
-            <div class="meta">
-              <span class="price">Rs.{product.price}</span>
+          <div className="content">
+            <div className="header">{product.title}</div>
+            <div className="meta">
+              <span className="price">Rs.{product.price}</span>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@ class Cart extends React.Component {
     if (typeof this.props.products === "undefined") {
       return (
         <div
-          class="ui active centered inline loader"
+          className="ui active centered inline loader"
           style={{ marginTop: "200px" }}
         ></div>
       );
@@ -71,19 +71,26 @@ class Cart extends React.Component {
     return (
       <div>
         <StepProcess stepNumber="0" />
+        <button
+          className="ui negative basic button"
+          onClick={() => this.props.removeCartProduct()}
+        >
+          Remove All products from cart
+        </button>
+        <br /> <br />
         <div style={{ display: "flex" }}>
           <div className="ui items">{this.renderCartProduct()}</div>
           <div className="ui cards">
             <div
-              class="card"
+              className="card"
               style={{ marginLeft: "150px", maxHeight: "280px" }}
             >
-              <div class="content">
-                <div class="header">
+              <div className="content">
+                <div className="header">
                   PRICE DETAILS {`(${this.props.products.length} items)`}
                 </div>
                 <hr />
-                <div class="description">
+                <div className="description">
                   <p style={{ float: "left" }}>
                     Total MRP <br /> Discount on MRP <br /> Coupon discount
                   </p>
@@ -93,7 +100,7 @@ class Cart extends React.Component {
                   </p>
                 </div>
 
-                <div class="description">
+                <div className="description">
                   <br /> <br /> <hr />
                   Total Amount
                   <p style={{ float: "right" }}>
@@ -101,8 +108,11 @@ class Cart extends React.Component {
                   </p>
                 </div>
               </div>
-              <Link to="/checkout/shipping" class="ui primary button negative">
-                <i class="shopping bag icon"></i>
+              <Link
+                to="/checkout/shipping"
+                className="ui primary button negative"
+              >
+                <i className="shopping bag icon"></i>
                 Place Order
               </Link>
             </div>
@@ -120,4 +130,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { retrieveCart })(Cart);
+export default connect(mapStateToProps, { retrieveCart, removeCartProduct })(
+  Cart
+);
