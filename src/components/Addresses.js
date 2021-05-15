@@ -51,9 +51,6 @@ class Addresses extends React.Component {
               <span className="category">{address.country}</span> <br />
               <span className="category">{`Mobile : ${address.phone}`}</span>
             </div>
-            <div className="description">
-              <p></p>
-            </div>
           </div>
           <div className="extra content">
             <Link to="/my/addresses/edit" className="ui primary button">
@@ -61,7 +58,7 @@ class Addresses extends React.Component {
             </Link>
             <button
               className="ui primary button"
-              onClick={() => this.removeAddress(address.id)}
+              onClick={() => this.removeAddress(address._id)}
             >
               Remove
             </button>

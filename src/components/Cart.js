@@ -61,22 +61,21 @@ class Cart extends React.Component {
 
     if (this.props.products.length === 0) {
       return (
-        <WarningMessage
-          header="You dont have any product in the cart"
-          description="Please add products to cart"
-        />
+        <div>
+          <WarningMessage
+            header="You dont have any product in the cart"
+            description="Please add products to cart"
+          />
+          <Link to="/" class="ui primary basic button">
+            Go to shop
+          </Link>
+        </div>
       );
     }
 
     return (
       <div>
         <StepProcess stepNumber="0" />
-        <button
-          className="ui negative basic button"
-          onClick={() => this.props.removeCartProduct()}
-        >
-          Remove All products from cart
-        </button>
         <br /> <br />
         <div style={{ display: "flex" }}>
           <div className="ui items">{this.renderCartProduct()}</div>
@@ -118,6 +117,12 @@ class Cart extends React.Component {
             </div>
           </div>
         </div>
+        <button
+          className="ui negative basic button"
+          onClick={() => this.props.removeCartProduct()}
+        >
+          Remove All products from cart
+        </button>
       </div>
     );
   }

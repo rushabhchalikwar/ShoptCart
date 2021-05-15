@@ -54,7 +54,6 @@ export const addTocart = (product) => async (dispatch, getState) => {
   const { userId } = getState().auth.user;
   const { id } = product;
   const response = await products.post("/cart", {
-    id: userId,
     userId,
     productId: id,
     product,
@@ -67,19 +66,15 @@ export const addTocart = (product) => async (dispatch, getState) => {
 
 export const retrieveCart = () => async (dispatch, getState) => {
   const { userId } = getState().auth.user;
-  const response = await products.get("/cart");
+  const response = await products.get(`/cart/${userId}`);
 
-  const filterCartProduct = response.data.filter((product) => {
-    return userId === product.userId;
-  });
-
-  dispatch({ type: RETRIVE_CART, payload: filterCartProduct });
+  dispatch({ type: RETRIVE_CART, payload: response.data });
 };
 
 export const retrieveAddresses = () => async (dispatch, getState) => {
   //const response = await products.get(`/addresses.json`);
   const { userId } = getState().auth.user;
-  const response = await products.get(`/addresses?customer_id=${userId}`);
+  const response = await products.get(`/addresses/${userId}`);
 
   dispatch({ type: RETRIEVE_ADDRESSES, payload: response.data });
 };
@@ -94,13 +89,13 @@ export const addAddress = (formValues) => async (dispatch, getState) => {
   console.log(response);
 
   dispatch({ type: ADD_ADDRESS, payload: getState().addresses.addresses });
-  history.push("/");
+  history.push("/my/addresses");
 };
 
 export const retrieveOrder = () => async (dispatch, getState) => {
   //const response = await products.get(`/addresses.json`);
   const { userId } = getState().auth.user;
-  const response = await products.get(`/orders?userId=${userId}`);
+  const response = await products.get(`/orders/${userId}`);
 
   dispatch({ type: RETRIEVE_ORDER, payload: response.data });
 };
