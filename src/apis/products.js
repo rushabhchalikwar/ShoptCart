@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://shopcartzz.herokuapp.com/",
+  baseURL: "https://shopcartzz.herokuapp.com/",
 });
